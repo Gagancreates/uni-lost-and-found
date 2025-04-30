@@ -24,7 +24,9 @@ export const fetchPosts = async (
 ): Promise<{ posts: Post[]; totalPages: number; currentPage: number; totalPosts: number }> => {
   let url = `${API_URL}/posts?page=${page}&limit=${limit}`;
   if (type) {
-    url += `&type=${type}`;
+    // Capitalize the first letter of the type to match backend format
+    const capitalizedType = type.charAt(0).toUpperCase() + type.slice(1);
+    url += `&type=${capitalizedType}`;
   }
 
   try {

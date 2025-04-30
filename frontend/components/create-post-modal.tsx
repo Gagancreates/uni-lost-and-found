@@ -32,14 +32,14 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit }: CreatePos
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50">
       <div
         className="w-full max-w-md bg-white rounded-xl shadow-xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold">
-            {step === "select" ? "Create New Post" : `Report ${selectedType === "lost" ? "Lost" : "Found"} Item`}
+            {step === "select" ? "Create New Post" : `Report ${selectedType === "Lost" ? "Lost" : "Found"} Item`}
           </h2>
           <button onClick={handleClose} className="p-1 rounded-full hover:bg-gray-100" aria-label="Close">
             <X size={20} />
@@ -52,13 +52,13 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit }: CreatePos
               <p className="text-center text-gray-600">What do you want to post?</p>
               <div className="grid grid-cols-2 gap-4">
                 <button
-                  onClick={() => handleTypeSelect("lost")}
+                  onClick={() => handleTypeSelect("Lost")}
                   className="py-4 px-6 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg border border-red-200 font-medium transition-colors"
                 >
                   Lost Item
                 </button>
                 <button
-                  onClick={() => handleTypeSelect("found")}
+                  onClick={() => handleTypeSelect("Found")}
                   className="py-4 px-6 bg-green-50 hover:bg-green-100 text-green-600 rounded-lg border border-green-200 font-medium transition-colors"
                 >
                   Found Item

@@ -1,4 +1,4 @@
-export type PostType = "lost" | "found"
+export type PostType = "Lost" | "Found"
 
 export interface Post {
   id: string

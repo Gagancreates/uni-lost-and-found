@@ -57,7 +57,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
       postFormData.append('contactInfo', formData.contactInfo)
       postFormData.append('type', type.charAt(0).toUpperCase() + type.slice(1)) // Capitalize the first letter
       
-      if (type === "found" && formData.currentLocation) {
+      if (type === "Found" && formData.currentLocation) {
         postFormData.append('currentLocation', formData.currentLocation)
       }
       
@@ -119,7 +119,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
 
       <div>
         <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
-          {type === "lost" ? "Where did you lose it?" : "Where did you find it?"} *
+          {type === "Lost" ? "Where did you lose it?" : "Where did you find it?"} *
         </label>
         <input
           type="text"
@@ -133,7 +133,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
         />
       </div>
 
-      {type === "found" && (
+      {type === "Found" && (
         <div>
           <label htmlFor="currentLocation" className="block text-sm font-medium text-gray-700 mb-1">
             Where is it currently? *

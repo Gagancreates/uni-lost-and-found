@@ -1,15 +1,10 @@
 import express, { Express } from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import fs from 'fs';
-import config from './config/config';
+import config from './config/config'; // This already loads dotenv
 
-// Load environment variables
-dotenv.config();
-
-// Initialize Express app
 const app: Express = express();
 const PORT = config.port;
 
@@ -18,54 +13,40 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Connect to MongoDB
-const MONGODB_URI = config.mongodbUri;
-
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    console.log('Connected to MongoDB Atlas');
-  })
+// MongoDB connection
+mongoose.connect(config.mongodbUri)
+  .then(() => console.log('Connected to MongoDB Atlas'))
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
-    console.log('Server will continue running without database connection. Authentication and data storage will not work.');
+    console.log('Server will continue running without database connection.');
   });
 
-// Ensure uploads directory exists
+// Ensure uploads folder exists
 const uploadsDir = path.join(__dirname, '../uploads');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
-// Import routes
+// Routes
 import postRoutes from './routes/postRoutes';
 import userRoutes from './routes/userRoutes';
 
-// Routes
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 
-// Health check endpoint
+// Health check route
 app.get('/health', (req, res) => {
   const dbStatus = mongoose.connection.readyState;
-  let dbStatusMessage;
-  
-  switch (dbStatus) {
-    case 0: dbStatusMessage = 'disconnected'; break;
-    case 1: dbStatusMessage = 'connected'; break;
-    case 2: dbStatusMessage = 'connecting'; break;
-    case 3: dbStatusMessage = 'disconnecting'; break;
-    default: dbStatusMessage = 'unknown';
-  }
-  
-  res.status(200).json({ 
+  const statuses = ['disconnected', 'connected', 'connecting', 'disconnecting'];
+  res.status(200).json({
     status: 'ok',
-    database: dbStatusMessage
+    database: statuses[dbStatus] || 'unknown',
   });
 });
 
-// Start server
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
-export default app; 
+export default app;

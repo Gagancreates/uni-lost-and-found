@@ -3,16 +3,15 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
 import fs from 'fs';
-import config from './config/config'; 
+import config from './config/config';
 
 const app: Express = express();
-const PORT = config.port;
 
 // Allowed origins for CORS
 const allowedOrigins = [
   'http://localhost:3000',
   'http://127.0.0.1:3000',
-  'https://uni-lost-and-found.vercel.app', // Add your Vercel domain here
+  'https://uni-lost-and-found.vercel.app'
 ];
 
 // Middleware
@@ -31,6 +30,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -52,6 +52,11 @@ if (!fs.existsSync(uploadsDir)) {
 import postRoutes from './routes/postRoutes';
 import userRoutes from './routes/userRoutes';
 
+// Add a root route handler
+app.get('/', (req, res) => {
+  res.json({ message: 'PESU Lost and Found API is running' });
+});
+
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 
@@ -65,9 +70,12 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+// Only start the server if we're not in a Vercel environment
+if (process.env.VERCEL !== '1') {
+  const PORT = config.port;
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
+}
 
 export default app;

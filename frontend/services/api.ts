@@ -1,8 +1,8 @@
 import { Post, PostType } from '@/types/post';
 import { User } from '@/types/user';
 
-// API URL - Update this to your production URL when deploying
-const API_URL = 'http://localhost:5000/api';
+// API URL - Use environment variable with fallback
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 // Helper to get stored auth token
 const getAuthHeader = (): Record<string, string> => {

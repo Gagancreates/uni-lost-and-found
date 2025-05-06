@@ -35,12 +35,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB connection
-mongoose.connect(config.mongodbUri)
-  .then(() => console.log('Connected to MongoDB Atlas'))
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
+const connectDB = async () => {
+  try {
+    if (!config.mongodbUri) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+    await mongoose.connect(config.mongodbUri);
+    console.log('Connected to MongoDB Atlas');
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
     console.log('Server will continue running without database connection.');
-  });
+    // Don't exit the process, let the server run with mock data
+  }
+};
+
+// Connect to MongoDB
+connectDB();
 
 // Ensure uploads folder exists
 const uploadsDir = path.join(__dirname, '../uploads');

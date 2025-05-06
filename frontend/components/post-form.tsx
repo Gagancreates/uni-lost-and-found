@@ -4,6 +4,7 @@ import { useState, type FormEvent, type ChangeEvent } from "react"
 import type { Post, PostType } from "@/types/post"
 import { ImagePlus } from "lucide-react"
 import { createPost } from "@/services/api"
+import Image from 'next/image'
 
 interface PostFormProps {
   type: PostType
@@ -70,8 +71,8 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
       
       // Call the onSubmit prop with the returned post
       onSubmit(createdPost)
-    } catch (err: any) {
-      setError(err.message || 'Failed to create post')
+    } catch (error: Error | unknown) {
+      setError(error instanceof Error ? error.message : 'Failed to create post')
     } finally {
       setIsSubmitting(false)
     }
@@ -189,7 +190,13 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
           {/* Image preview */}
           {imagePreview && (
             <div className="ml-4 relative h-16 w-16 rounded-md overflow-hidden">
-              <img src={imagePreview} alt="Preview" className="h-full w-full object-cover" />
+              <Image 
+                src={imagePreview} 
+                alt="Preview" 
+                fill
+                className="object-cover"
+                sizes="64px"
+              />
             </div>
           )}
         </div>

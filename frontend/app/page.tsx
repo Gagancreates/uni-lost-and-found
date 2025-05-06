@@ -30,12 +30,12 @@ export default function Home() {
         const result = await fetchPosts(type, currentPage)
         setPosts(result.posts)
         setTotalPages(result.totalPages)
-      } catch (err: any) {
-        console.error('Error in page component:', err)
-        if (err.message.includes('Cannot connect to the server')) {
+      } catch (error: Error | unknown) {
+        console.error('Error in page component:', error)
+        if (error instanceof Error && error.message.includes('Cannot connect to the server')) {
           setError('Cannot connect to the backend server. Please make sure the backend is running on port 5000.')
         } else {
-          setError(err.message || 'Failed to load posts')
+          setError(error instanceof Error ? error.message : 'Failed to load posts')
         }
       } finally {
         setIsLoading(false)
@@ -59,11 +59,11 @@ export default function Home() {
       setPosts(result.posts)
       setTotalPages(result.totalPages)
       setCurrentPage(1)
-    } catch (err: any) {
-      if (err.message.includes('Cannot connect to the server')) {
+    } catch (error: Error | unknown) {
+      if (error instanceof Error && error.message.includes('Cannot connect to the server')) {
         setError('Cannot connect to the backend server. Please make sure the backend is running on port 5000.')
       } else {
-        setError(err.message || 'Failed to refresh posts')
+        setError(error instanceof Error ? error.message : 'Failed to refresh posts')
       }
     }
   }

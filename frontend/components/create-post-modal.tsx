@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Wheat, X } from "lucide-react"
+import { X } from "lucide-react"
 import type { Post, PostType } from "@/types/post"
 import PostForm from "./post-form"
 

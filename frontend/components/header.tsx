@@ -29,18 +29,27 @@ export default function Header({ activeFilter, onFilterChange }: HeaderProps) {
   }
 
   return (
-    <header className="sticky top-0 z-10 bg-gradient-to-r from-pink-400/50 via-purple-200/50 to-blue-400/50 backdrop-blur-md shadow-sm">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex justify-between items-center mb-4">
-          <h1 className={`text-4xl font-bold text-black ${instrumentSerif.className}`}>PESU Lost and Found</h1>
-          
-          <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-pink-400/50 via-purple-200/50 to-blue-400/50 backdrop-blur-md shadow-sm">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="h-16 sm:h-20 flex items-center justify-between">
+          {/* Logo */}
+          <h1 
+            className={`text-2xl sm:text-4xl font-bold text-gray-900 ${instrumentSerif.className} hover:opacity-80 transition-opacity cursor-pointer tracking-tight`}
+            onClick={() => router.push('/')}
+          >
+            PESU Lost & Found
+          </h1>
+
+          {/* Auth Buttons */}
+          <div className="flex items-center">
             {user ? (
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-medium">Welcome, {user.name}</span>
+              <div className="flex items-center gap-4">
+                <span className="hidden sm:block text-base font-medium text-gray-800">
+                  Welcome, {user.name}
+                </span>
                 <button 
                   onClick={handleLogout}
-                  className="bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1 rounded"
+                  className="px-5 py-2.5 text-sm font-medium text-white bg-red-500/80 hover:bg-red-500 rounded-lg transition-all hover:shadow-md active:transform active:scale-95"
                 >
                   Logout
                 </button>
@@ -48,7 +57,7 @@ export default function Header({ activeFilter, onFilterChange }: HeaderProps) {
             ) : (
               <button 
                 onClick={handleLogin}
-                className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-3 py-1 rounded"
+                className="px-5 py-2.5 text-sm font-medium text-white bg-blue-500/80 hover:bg-blue-500 rounded-lg transition-all hover:shadow-md active:transform active:scale-95"
               >
                 Login
               </button>
@@ -56,30 +65,37 @@ export default function Header({ activeFilter, onFilterChange }: HeaderProps) {
           </div>
         </div>
 
-        <div className="flex justify-center gap-2">
+        {/* Filter Buttons */}
+        <div className="py-4 sm:py-5 flex justify-center sm:justify-start gap-3">
           <button
             onClick={() => onFilterChange("all")}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeFilter === "all" ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+            className={`min-w-[120px] px-6 py-2.5 text-sm font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 ${
+              activeFilter === "all"
+                ? "bg-gray-800 text-white shadow-md"
+                : "bg-white/90 hover:bg-white text-gray-800 hover:shadow-md"
             }`}
           >
-            All
+            All Items
           </button>
           <button
             onClick={() => onFilterChange("Lost")}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeFilter === "Lost" ? "bg-red-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+            className={`min-w-[120px] px-6 py-2.5 text-sm font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 ${
+              activeFilter === "Lost"
+                ? "bg-red-500 text-white shadow-md"
+                : "bg-white/90 hover:bg-white text-gray-800 hover:shadow-md"
             }`}
           >
-            Lost
+            Lost Items
           </button>
           <button
             onClick={() => onFilterChange("Found")}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-              activeFilter === "Found" ? "bg-green-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+            className={`min-w-[120px] px-6 py-2.5 text-sm font-medium rounded-lg transition-all transform hover:scale-105 active:scale-95 ${
+              activeFilter === "Found"
+                ? "bg-green-500 text-white shadow-md"
+                : "bg-white/90 hover:bg-white text-gray-800 hover:shadow-md"
             }`}
           >
-            Found
+            Found Items
           </button>
         </div>
       </div>

@@ -47,8 +47,7 @@ const PostSchema = new Schema<IPost>(
       required: [true, 'Type is required']
     },
     imageUrl: {
-      type: String,
-      default: 'https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg' // Default image
+      type: String
     },
     userId: {
       type: Schema.Types.ObjectId,

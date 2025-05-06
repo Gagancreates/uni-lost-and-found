@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/context/AuthContext'
@@ -14,16 +14,21 @@ const instrumentSerif = Instrument_Serif({
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const { login, isLoading, error } = useAuth()
+  const { login, isLoading, error, user } = useAuth()
   const router = useRouter()
+
+  useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    await login({ email, password })
-    
-    // If no error, redirect to home page
-    if (!error) {
-      router.push('/')
+    try {
+      await login({ email, password })
+    } catch (err) {
+      console.error('Login failed:', err)
     }
   }
 
@@ -31,7 +36,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-100">
         <div className="text-center mb-8">
-          <h1 className={`text-4xl font-bold mb-2 ${instrumentSerif.className}`}>
+          <h1 className={`text-4xl text-black font-bold mb-2 ${instrumentSerif.className}`}>
             PESU Lost and Found
           </h1>
           <h2 className="text-2xl font-semibold text-gray-700">Welcome Back</h2>
@@ -49,7 +54,7 @@ export default function LoginPage() {
               Email Address
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="email"
               type="email"
               placeholder="Enter your email"
@@ -63,7 +68,7 @@ export default function LoginPage() {
               Password
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="password"
               type="password"
               placeholder="Enter your password"

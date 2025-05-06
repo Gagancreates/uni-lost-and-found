@@ -96,7 +96,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
           value={formData.title}
           onChange={handleChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-gray-500"
           placeholder="Brief title of the item"
         />
       </div>
@@ -112,7 +112,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
           onChange={handleChange}
           required
           rows={3}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-gray-500"
           placeholder="Detailed description of the item"
         />
       </div>
@@ -128,7 +128,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
           value={formData.location}
           onChange={handleChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-gray-500"
           placeholder="Location details"
         />
       </div>
@@ -145,7 +145,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
             value={formData.currentLocation}
             onChange={handleChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-gray-500"
             placeholder="Where are you keeping the item?"
           />
         </div>
@@ -162,7 +162,7 @@ export default function PostForm({ type, onSubmit, onCancel }: PostFormProps) {
           value={formData.contactInfo}
           onChange={handleChange}
           required
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400"
+          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 placeholder-gray-500"
           placeholder="How to contact you?( Email, Phone Number, etc.)"
         />
       </div>

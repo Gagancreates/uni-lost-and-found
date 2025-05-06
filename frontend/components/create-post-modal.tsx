@@ -38,10 +38,10 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit }: CreatePos
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-4 border-b">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold text-black">
             {step === "select" ? "Create New Post" : `Report ${selectedType === "Lost" ? "Lost" : "Found"} Item`}
           </h2>
-          <button onClick={handleClose} className="p-1 rounded-full hover:bg-gray-100" aria-label="Close">
+          <button onClick={handleClose} className="p-1 rounded-full text-black hover:bg-gray-100" aria-label="Close">
             <X size={20} />
           </button>
         </div>

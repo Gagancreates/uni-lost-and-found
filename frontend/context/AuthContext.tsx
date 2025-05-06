@@ -16,6 +16,7 @@ interface AuthContextType {
   logout: () => void
 }
 
+
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -39,6 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (credentials: UserCredentials) => {
     setIsLoading(true)
     setError(null)
+    setUser(null) // Reset user state on new login attempt
     
     try {
       const response = await fetch(`${API_URL}/users/login`, {
@@ -46,13 +48,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(credentials),
       })
 
       const data = await response.json().catch(() => ({ error: 'Failed to parse server response' }))
 
       if (!response.ok) {
-        throw new Error(data.error || `Login failed: ${response.status} ${response.statusText}`)
+        throw new Error(data.error || `Invalid email or password`)
       }
 
       const userData: User = {
@@ -66,9 +69,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('user', JSON.stringify(userData))
       
       // Save token in cookie for middleware
-      Cookies.set('token', data.token, { expires: 30 }) // 30 days expiry
+      Cookies.set('token', data.token, { 
+        expires: 30, // 30 days expiry
+        path: '/',
+        sameSite: 'strict',
+        secure: window.location.protocol === 'https:'
+      })
       
+      // Set user state only after successful login
       setUser(userData)
+     
     } catch (err: any) {
       console.error('Login error:', err)
       if (err.name === 'TypeError' && err.message.includes('Failed to fetch')) {
@@ -76,6 +86,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setError(err.message || 'Something went wrong')
       }
+      // Ensure user state is null on error
+      setUser(null)
+      // Clear any existing data on error
+      localStorage.removeItem('user')
+      Cookies.remove('token')
     } finally {
       setIsLoading(false)
     }

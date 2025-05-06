@@ -12,7 +12,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Status badge */}
       <div
         className={`absolute top-0 right-0 px-3 py-1 text-xs font-bold text-white rounded-bl-lg ${
-          post.type === "lost" ? "bg-red-500" : "bg-green-500" 
+          post.type === "Lost" ? "bg-red-500" : "bg-green-500" 
         }`}
       >
         {post.type.toUpperCase()}
@@ -21,7 +21,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Image (if available) */}
       {post.image && (
         <div className="relative w-full h-48">
-          <Image src={post.image || "/placeholder.svg"} alt={post.title} fill className="object-cover" />
+          <Image src={post.image} alt={post.title} fill className="object-cover" />
         </div>
       )}
 
@@ -37,7 +37,7 @@ export default function PostCard({ post }: PostCardProps) {
             <span className="text-gray-600">{post.location}</span>
           </p>
 
-          {post.type === "found" && post.currentLocation && (
+          {post.type === "Found" && post.currentLocation && (
             <p className="flex items-start">
               <span className="font-medium text-gray-700 mr-2">Currently at:</span>
               <span className="text-gray-600">{post.currentLocation}</span>

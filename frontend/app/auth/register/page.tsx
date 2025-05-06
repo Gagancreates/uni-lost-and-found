@@ -57,7 +57,7 @@ export default function RegisterPage() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-100">
         <div className="text-center mb-8">
-          <h1 className={`text-4xl font-bold mb-2 ${instrumentSerif.className}`}>
+          <h1 className={`text-4xl text-black font-bold mb-2 ${instrumentSerif.className}`}>
             PESU Lost and Found
           </h1>
           <h2 className="text-2xl font-semibold text-gray-700">Create Account</h2>
@@ -75,7 +75,7 @@ export default function RegisterPage() {
               Full Name
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="name"
               type="text"
               placeholder="Enter your full name"
@@ -90,7 +90,7 @@ export default function RegisterPage() {
               Email Address
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="email"
               type="email"
               placeholder="Enter your email"
@@ -105,7 +105,7 @@ export default function RegisterPage() {
               SRN (PESxUGxxyyxxx)
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="srn"
               type="text"
               placeholder="e.g., PES1UG23AB456"
@@ -113,9 +113,7 @@ export default function RegisterPage() {
               onChange={(e) => setSrn(e.target.value.toUpperCase())}
               required
             />
-            <p className="text-xs text-gray-500 mt-1">
-              Format: PESxUGxxyyxxx where x are numbers and y are letters
-            </p>
+            
           </div>
           
           <div>
@@ -123,7 +121,7 @@ export default function RegisterPage() {
               Password
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="password"
               type="password"
               placeholder="Enter your password"
@@ -139,7 +137,7 @@ export default function RegisterPage() {
               Confirm Password
             </label>
             <input
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors placeholder-gray-300"
               id="confirmPassword"
               type="password"
               placeholder="Confirm your password"
